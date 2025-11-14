@@ -104,12 +104,12 @@ $totalKeuangan = query("SELECT SUM(totalHarga) FROM transaksi WHERE statusPengir
                                         <div class="card-title d-flex align-items-center justify-content-center mb-3">
                                             <div class="avatar flex-shrink-0">
                                                 <img
-                                                    src="../img/complate_order.png"
+                                                    src="../img/complete_order.png"
                                                     alt="Credit Card"
                                                     class="rounded" />
                                             </div>
                                         </div>
-                                        <span class="fw-semibold d-block mb-1">Complate Order</span>
+                                        <span class="fw-semibold d-block mb-1">Complete Order</span>
                                         <h3 class="card-title text-nowrap mb-1"><?= $totalTransaksiSelesai; ?></h3>
                                         <small class="fw-semibold" style="color: #696bff;">Total Transaksi Selesai</small>
                                     </div>
@@ -198,22 +198,7 @@ $totalKeuangan = query("SELECT SUM(totalHarga) FROM transaksi WHERE statusPengir
                         </div>
                     </div>
                     <!-- / Content -->
-
-                    <!-- Footer -->
-                    <footer class="content-footer footer bg-footer-theme">
-                        <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
-                            <div class="mb-2 mb-md-0">
-                                ©
-                                <script>
-                                    document.write(new Date().getFullYear());
-                                </script>
-                                , made by MediCart
-                                <!-- <a href="https://www.instagram.com/syafiqghiffari__/" target="_blank" class="footer-link fw-bolder">Syafiq Al-Ghiffari</a> -->
-                            </div>
-                        </div>
-                    </footer>
-                    <!-- / Footer -->
-
+                    
                     <div class="content-backdrop fade"></div>
                 </div>
                 <!-- Content wrapper -->

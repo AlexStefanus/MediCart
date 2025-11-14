@@ -33,7 +33,7 @@ $allProduk = query("SELECT * FROM produk");
             <div class="content-wrapper">
                 <!-- Content -->
                 <div class="container-xxl flex-grow-1 container-p-y">
-                    <h4 class="fw-bold py-3 custom-margin">Product</h4>
+                    <h4 class="fw-bold py-3 custom-margin">Manage Product</h4>
                     <!-- Basic Table -->
                     <div class="card">
                         <h5 class="card-header" style="margin-bottom: -30px;">All Product</h5>
@@ -113,21 +113,6 @@ $allProduk = query("SELECT * FROM produk");
                     <!--/ Basic Bootstrap Table -->
                 </div>
                 <!-- / Content -->
-
-                <!-- Footer -->
-                <footer class="content-footer footer bg-footer-theme">
-                    <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
-                        <div class="mb-2 mb-md-0">
-                            ©
-                            <script>
-                                document.write(new Date().getFullYear());
-                            </script>
-                            , made by MediCart
-                            <!-- <a href="https://www.instagram.com/syafiqghiffari__/" target="_blank" class="footer-link fw-bolder">Syafiq Al-Ghiffari</a> -->
-                        </div>
-                    </div>
-                </footer>
-                <!-- / Footer -->
 
                 <div class="content-backdrop fade"></div>
             </div>

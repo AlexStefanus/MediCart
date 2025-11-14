@@ -80,17 +80,6 @@ if (!isset($_SESSION["login"]) && $checkLogin > 0) {
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-    <!-- Live Search -->
-    <script>
-        $(document).ready(function() {
-            $("#searchingTable").on("keyup", function() {
-                var value = $(this).val().toLowerCase();
-                $(".produk-item").filter(function() {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                });
-            });
-        });
-    </script>
 </head>
 
 <body>
@@ -121,11 +110,8 @@ if (!isset($_SESSION["login"]) && $checkLogin > 0) {
             <!-- Right Side Icons -->
             <div class="d-flex align-items-center">
                 <!-- Shopping Cart -->
-                <a href="viewKeranjang.php" class="nav-link me-3 position-relative">
+                <a href="viewKeranjang.php" class="nav-link me-3">
                     <i class="fas fa-shopping-cart fa-lg" style="color: #696bff;"></i>
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.6rem;">
-                        <!-- Cart count bisa ditambahkan di sini -->
-                    </span>
                 </a>
 
                 <!-- Orders -->
@@ -253,6 +239,60 @@ if (!isset($_SESSION["login"]) && $checkLogin > 0) {
                 });
             });
         }
+        
+        // Real-time search functionality
+        $(document).ready(function() {
+            // Initialize with All Categories selected
+            $('.list-group-item[onclick="filterKategori(\'all\')"]').addClass('active');
+            
+            // Handle search input in real-time
+            $("#searchingTable").on("input", function() {
+                var searchValue = $(this).val().toLowerCase().trim();
+                
+                // Get current category from global variable if available
+                var currentCat = 'all';
+                if (typeof currentCategory !== 'undefined') {
+                    currentCat = currentCategory;
+                }
+                
+                // Apply both filters
+                if (typeof applyFilters === 'function') {
+                    applyFilters(currentCat, searchValue);
+                } else {
+                    // Fallback if applyFilters function is not available
+                    if (searchValue === '') {
+                        $(".produk-item").show();
+                        $('#no-results').hide();
+                        return;
+                    }
+                    
+                    // Filter products in real-time
+                    let visibleCount = 0;
+                    $(".produk-item").each(function() {
+                        var productName = $(this).find(".card-title").text().toLowerCase();
+                        var productCategory = $(this).find(".card-text").text().toLowerCase();
+                        var productContent = productName + ' ' + productCategory;
+                        
+                        // Check if product matches search
+                        if (productContent.indexOf(searchValue) > -1) {
+                            $(this).show();
+                            visibleCount++;
+                        } else {
+                            $(this).hide();
+                        }
+                    });
+                    
+                    // Show or hide no results message if it exists
+                    if ($('#no-results').length > 0) {
+                        if (visibleCount === 0) {
+                            $('#no-results').show();
+                        } else {
+                            $('#no-results').hide();
+                        }
+                    }
+                }
+            });
+        });
     </script>
 
     <style>

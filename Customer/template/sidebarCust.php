@@ -21,84 +21,25 @@
         <!-- All Categories -->
         <li class="menu-item">
             <a href="#" class="menu-link nav-link collapsed" onclick="filterKategori('all')">
-                <i class="menu-icon tf-icons bx bx-category"></i>
                 <div data-i18n="Form Elements">All Categories</div>
             </a>
         </li>
         
-        <!-- Peralatan Medis -->
-        <li class="menu-item">
-            <a href="#" class="menu-link nav-link collapsed" onclick="filterKategori('Peralatan Medis')">
-                <i class="menu-icon tf-icons bx bx-plus-medical"></i>
-                <div data-i18n="Form Elements">Peralatan Medis</div>
-            </a>
-        </li>
+        <?php
+        // Mengambil kategori unik dari database
+        $query = "SELECT DISTINCT kategoriProduk FROM produk ORDER BY kategoriProduk ASC";
+        $kategoriList = query($query);
         
-        <!-- Obat dan Suplemen -->
-        <li class="menu-item">
-            <a href="#" class="menu-link nav-link collapsed" onclick="filterKategori('Obat dan Suplemen')">
-                <i class="menu-icon tf-icons bx bx-capsule"></i>
-                <div data-i18n="Form Elements">Obat dan Suplemen</div>
-            </a>
-        </li>
-        
-        <!-- Alat Bantu Jalan -->
-        <li class="menu-item">
-            <a href="#" class="menu-link nav-link collapsed" onclick="filterKategori('Alat Bantu Jalan')">
-                <i class="menu-icon tf-icons bx bx-walk"></i>
-                <div data-i18n="Form Elements">Alat Bantu Jalan</div>
-            </a>
-        </li>
-        
-        <!-- Alat Ukur Kesehatan -->
-        <li class="menu-item">
-            <a href="#" class="menu-link nav-link collapsed" onclick="filterKategori('Alat Ukur Kesehatan')">
-                <i class="menu-icon tf-icons bx bx-tachometer"></i>
-                <div data-i18n="Form Elements">Alat Ukur Kesehatan</div>
-            </a>
-        </li>
-        
-        <!-- Alat Pemantau Kesehatan -->
-        <li class="menu-item">
-            <a href="#" class="menu-link nav-link collapsed" onclick="filterKategori('Alat Pemantau Kesehatan')">
-                <i class="menu-icon tf-icons bx bx-heart"></i>
-                <div data-i18n="Form Elements">Alat Pemantau Kesehatan</div>
-            </a>
-        </li>
-        
-        <!-- Alat Terapi dan Rehabilitasi -->
-        <li class="menu-item">
-            <a href="#" class="menu-link nav-link collapsed" onclick="filterKategori('Alat Terapi dan Rehabilitasi')">
-                <i class="menu-icon tf-icons bx bx-dumbbell"></i>
-                <div data-i18n="Form Elements">Alat Terapi dan Rehabilitasi</div>
-            </a>
-        </li>
-        
-        <!-- Perlengkapan Rumah Sakit -->
-        <li class="menu-item">
-            <a href="#" class="menu-link nav-link collapsed" onclick="filterKategori('Perlengkapan Rumah Sakit')">
-                <i class="menu-icon tf-icons bx bx-clinic"></i>
-                <div data-i18n="Form Elements">Perlengkapan Rumah Sakit</div>
-            </a>
-        </li>
-        
-        <!-- Perlengkapan Dokter -->
-        <li class="menu-item">
-            <a href="#" class="menu-link nav-link collapsed" onclick="filterKategori('Perlengkapan Dokter')">
-                <i class="menu-icon tf-icons bx bx-user-plus"></i>
-                <div data-i18n="Form Elements">Perlengkapan Dokter</div>
-            </a>
-        </li>
-        
-        <!-- Perlengkapan Perawat -->
-        <li class="menu-item">
-            <a href="#" class="menu-link nav-link collapsed" onclick="filterKategori('Perlengkapan Perawat')">
-                <i class="menu-icon tf-icons bx bx-first-aid"></i>
-                <div data-i18n="Form Elements">Perlengkapan Perawat</div>
-            </a>
-        </li>
-        
-        
+        // Menampilkan setiap kategori
+        foreach ($kategoriList as $kat) :
+            $kategoriNama = $kat['kategoriProduk'];
+        ?>
+            <li class="menu-item">
+                <a href="#" class="menu-link nav-link collapsed" onclick="filterKategori('<?= $kategoriNama; ?>')">
+                    <div data-i18n="Form Elements"><?= $kategoriNama; ?></div>
+                </a>
+            </li>
+        <?php endforeach; ?>
     </ul>
 </aside>
 

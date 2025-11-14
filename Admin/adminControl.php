@@ -7,7 +7,16 @@ function tambahProduk($data){
     global $connect;
     $idProduk = 'PRD-' . time();
     $namaProduk = htmlspecialchars($data["namaProduk"]);
-    $kategoriProduk = htmlspecialchars($data["kategoriProduk"]);
+    
+    // Cek apakah kategori yang dipilih adalah "lain-lain"
+    if ($data["kategoriProduk"] === "lain-lain" && isset($data["kategoriBaruProduk"]) && !empty($data["kategoriBaruProduk"])) {
+        // Gunakan kategori baru yang diinput user
+        $kategoriProduk = htmlspecialchars($data["kategoriBaruProduk"]);
+    } else {
+        // Gunakan kategori yang dipilih dari dropdown
+        $kategoriProduk = htmlspecialchars($data["kategoriProduk"]);
+    }
+    
     $hargaProduk = htmlspecialchars($data["hargaProduk"]);
     $stokProduk = htmlspecialchars($data["stokProduk"]);
     $gambarProduk = upload();
@@ -107,11 +116,38 @@ function deleteProduk($id){
 
 // ====================================================================================================
 
-// FUnction untuk hapus customer
+// Function untuk hapus customer
 function deleteCustomer($username){
     global $connect;
-    mysqli_query($connect, "DELETE FROM customer WHERE username = '$username'");
-    return mysqli_affected_rows($connect);
+    
+    // Begin transaction to ensure data integrity
+    mysqli_begin_transaction($connect);
+    
+    try {
+        // First delete related records from keranjang table
+        mysqli_query($connect, "DELETE FROM keranjang WHERE username = '$username'");
+        
+        // Then delete related records from transaksi table if any
+        mysqli_query($connect, "DELETE FROM transaksi WHERE username = '$username'");
+        
+        // Finally delete the customer
+        $result = mysqli_query($connect, "DELETE FROM customer WHERE username = '$username'");
+        
+        // If everything went well, commit the transaction
+        mysqli_commit($connect);
+        
+        // Always return success (1) if the transaction was committed successfully
+        // This fixes the issue where mysqli_affected_rows might return 0 if no rows were affected
+        // in the last query but the transaction as a whole was successful
+        return 1;
+    } catch (Exception $e) {
+        // If there was an error, roll back the transaction
+        mysqli_rollback($connect);
+        
+        // Return error message
+        echo "<script>alert('Error: " . $e->getMessage() . "');</script>";
+        return 0;
+    }
 }
 
 // Function untuk update customer

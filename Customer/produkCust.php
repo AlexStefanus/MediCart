@@ -7,19 +7,6 @@ require 'template/headerCust.php';
 
 $allProduk = query("SELECT * FROM produk");
 
-$kategori = array(
-    "Peralatan Medis",
-    "Obat dan Suplemen",
-    "Alat Bantu Jalan",
-    "Alat Ukur Kesehatan",
-    "Alat Pemantau Kesehatan",
-    "Alat Terapi dan Rehabilitasi",
-    "Perlengkapan Rumah Sakit",
-    "Perlengkapan Dokter",
-    "Perlengkapan Perawat",
-    "lain-lain"
-);
-
 ?>
 
 <!-- Main Content with Top Navbar -->
@@ -35,38 +22,21 @@ $kategori = array(
                     <div class="card-body p-0">
                         <div class="list-group list-group-flush">
                             <a href="#" class="list-group-item list-group-item-action" onclick="filterKategori('all')">
-                                <i class="bx bx-category me-2" style="color: #696bff;"></i>All Categories
+                                All Categories
                             </a>
-                            <a href="#" class="list-group-item list-group-item-action" onclick="filterKategori('Peralatan Medis')">
-                                <i class="bx bx-plus-medical me-2" style="color: #696bff;"></i>Peralatan Medis
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action" onclick="filterKategori('Obat dan Suplemen')">
-                                <i class="bx bx-capsule me-2" style="color: #696bff;"></i>Obat dan Suplemen
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action" onclick="filterKategori('Alat Bantu Jalan')">
-                                <i class="bx bx-walk me-2" style="color: #696bff;"></i>Alat Bantu Jalan
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action" onclick="filterKategori('Alat Ukur Kesehatan')">
-                                <i class="bx bx-ruler me-2" style="color: #696bff;"></i>Alat Ukur Kesehatan
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action" onclick="filterKategori('Alat Pemantau Kesehatan')">
-                                <i class="bx bx-pulse me-2" style="color: #696bff;"></i>Alat Pemantau Kesehatan
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action" onclick="filterKategori('Alat Terapi dan Rehabilitasi')">
-                                <i class="bx bx-dumbbell me-2" style="color: #696bff;"></i>Alat Terapi dan Rehabilitasi
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action" onclick="filterKategori('Perlengkapan Rumah Sakit')">
-                                <i class="bx bx-clinic me-2" style="color: #696bff;"></i>Perlengkapan Rumah Sakit
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action" onclick="filterKategori('Perlengkapan Dokter')">
-                                <i class="bx bx-user-pin me-2" style="color: #696bff;"></i>Perlengkapan Dokter
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action" onclick="filterKategori('Perlengkapan Perawat')">
-                                <i class="bx bx-user-check me-2" style="color: #696bff;"></i>Perlengkapan Perawat
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action" onclick="filterKategori('lain-lain')">
-                                <i class="bx bx-dots-horizontal me-2" style="color: #696bff;"></i>Lain-lain
-                            </a>
+                            <?php
+                            // Mengambil kategori unik dari database
+                            $query = "SELECT DISTINCT kategoriProduk FROM produk ORDER BY kategoriProduk ASC";
+                            $kategoriList = query($query);
+                            
+                            // Menampilkan setiap kategori
+                            foreach ($kategoriList as $kat) :
+                                $kategoriNama = $kat['kategoriProduk'];
+                            ?>
+                                <a href="#" class="list-group-item list-group-item-action" onclick="filterKategori('<?= $kategoriNama; ?>')">
+                                    <?= $kategoriNama; ?>
+                                </a>
+                            <?php endforeach; ?>
                         </div>
                     </div>
                 </div>
@@ -110,40 +80,72 @@ $kategori = array(
                                         </div>
                                     </div>
                                 <?php endforeach; ?>
+                                
+                                <!-- No Results Message -->
+                                <div id="no-results" class="col-12 text-center py-5" style="display: none;">
+                                    <div class="alert alert-info">
+                                        <i class="bx bx-search-alt me-2"></i>
+                                        <span>Tidak ada produk yang sesuai dengan pencarian Anda.</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                
-                    <!-- Footer -->
-                    <footer class="mt-5 py-4 bg-light">
-                        <div class="container">
-                            <div class="text-center">
-                                &copy;
-                                <script>
-                                    document.write(new Date().getFullYear());
-                                </script>
-                                , made by MediCart
-                            </div>
-                        </div>
-                    </footer>
                 </div>
             </div>
         </div>
     </div>
 
 <script>
+    // Variable to track current category filter
+    let currentCategory = 'all';
+    
     function filterKategori(kategori) {
-        // Dapatkan semua produk
+        // Update current category
+        currentCategory = kategori;
+        
+        // Get search value
+        const searchValue = $('#searchingTable').val().toLowerCase().trim();
+        
+        // Apply both filters
+        applyFilters(currentCategory, searchValue);
+        
+        // Update active category in sidebar
+        $('.list-group-item').removeClass('active');
+        $(`.list-group-item[onclick="filterKategori('${kategori}')"]`).addClass('active');
+    }
+    
+    // Function to apply both category and search filters
+    function applyFilters(category, search) {
+        // Get all products
         const products = document.querySelectorAll('.produk-item');
-
-        // Periksa kategori
+        let visibleCount = 0;
+        
+        // Apply both filters
         products.forEach(product => {
-            if (kategori === 'all' || product.getAttribute('data-kategori') === kategori) {
-                product.style.display = 'block'; // Tampilkan produk
+            const productCategory = product.getAttribute('data-kategori');
+            const productName = $(product).find('.card-title').text().toLowerCase();
+            const productCategoryText = $(product).find('.card-text').text().toLowerCase();
+            const productContent = productName + ' ' + productCategoryText;
+            
+            // Check if product matches both category and search
+            const matchesCategory = (category === 'all' || productCategory === category);
+            const matchesSearch = (search === '' || productContent.indexOf(search) > -1);
+            
+            if (matchesCategory && matchesSearch) {
+                product.style.display = 'block';
+                visibleCount++;
             } else {
-                product.style.display = 'none'; // Sembunyikan produk
+                product.style.display = 'none';
             }
         });
+        
+        // Show or hide no results message
+        if (visibleCount === 0) {
+            $('#no-results').show();
+        } else {
+            $('#no-results').hide();
+        }
     }
 </script>
 

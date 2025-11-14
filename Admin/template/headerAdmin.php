@@ -93,53 +93,6 @@ if (!isset($_SESSION["login"])) {
 </head>
 
 <body>
-    <!-- HEADER -->
-    <header>
-        <!-- Navbar -->
-        <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme" id="layout-navbar">
-            <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
-                <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
-                    <i class="bx bx-menu bx-sm"></i>
-                </a>
-            </div>
-
-            <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-
-                <ul class="navbar-nav flex-row align-items-center ms-auto">
-                    <!-- User -->
-                    <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                        <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                            <i class="fas fa-user-circle fa-2x" style="color: #696bff;"></i>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li>
-                                <a class="dropdown-item" href="#">
-                                    <div class="d-flex">
-                                        <div class="flex-grow-1">
-                                            <span class="fw-semibold d-block"><?= $userLogin; ?></span>
-                                            <small class="text-muted"><?= $userLogin; ?></small>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <div class="dropdown-divider"></div>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="javascript:void(0)" id="logoutButton">
-                                    <i class="bx bx-power-off me-2"></i>
-                                    <span class="align-middle">Log Out</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <!--/ User -->
-                </ul>
-            </div>
-        </nav>
-        <!-- / Navbar -->
-    </header>
-
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Font Awesome JS (Optional if icons need to work offline) -->
@@ -188,55 +141,74 @@ if (!isset($_SESSION["login"])) {
     </script>
 
     <style>
-        /* Pastikan sidebar tidak menabrak header */
+        /* Sidebar styles without header */
         .sidebar {
             position: fixed;
-            /* Tetap di sisi kiri */
             top: 0;
             left: 0;
             width: 250px;
-            /* Lebar sidebar */
             height: 100vh;
-            /* Tinggi penuh */
-            z-index: 1;
+            z-index: 990;
             overflow-y: auto;
-            /* Scroll jika konten lebih panjang */
+            padding-top: 0;
         }
 
-        /* Konten utama */
-        .main-content {
+        /* Adjust content area */
+        .layout-page {
+            padding-top: 0;
+        }
+        
+        .content-wrapper {
             margin-left: 250px;
-            /* Berikan ruang sesuai lebar sidebar */
             padding: 20px;
-            /* Jarak konten dari tepi */
         }
-
-        /* Header */
-        header {
-            position: fixed;
-            top: 0;
-            left: 250px;
-            /* Berikan ruang sesuai lebar sidebar */
-            width: calc(100% - 250px);
-            /* Sesuaikan lebar agar tidak menabrak sidebar */
-            z-index: 2;
+        
+        /* Custom margin for dashboard heading */
+        .custom-margin {
+            margin-top: 20px !important;
         }
-
-        /* Untuk memastikan responsif */
+        
+        /* Responsive adjustments */
         @media (max-width: 768px) {
             .sidebar {
                 width: 200px;
-                /* Lebar lebih kecil untuk perangkat kecil */
             }
-
-            .main-content {
+            
+            .content-wrapper {
                 margin-left: 200px;
             }
-
-            header {
-                left: 200px;
-                width: calc(100% - 200px);
+        }
+        
+        /* For mobile view */
+        @media (max-width: 576px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
             }
+            
+            .sidebar.show {
+                transform: translateX(0);
+            }
+            
+            .content-wrapper {
+                margin-left: 0;
+            }
+        }
+        
+        /* Profile menu styles */
+        .profile-menu {
+            padding: 15px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .profile-menu .user-info {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        
+        .profile-menu .user-name {
+            font-weight: bold;
+            margin: 5px 0;
         }
     </style>
 

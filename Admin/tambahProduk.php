@@ -116,6 +116,25 @@ $kategori = array(
                                                 </div>
                                             </div>
                                         </div>
+                                        
+                                        <!-- Text box untuk kategori baru (awalnya tersembunyi) -->
+                                        <div class="row mb-3" id="newCategoryRow" style="display: none;">
+                                            <label class="col-sm-2 col-form-label" for="kategoriBaruProduk">New Category</label>
+                                            <div class="col-sm-10">
+                                                <div class="input-group input-group-merge">
+                                                    <span id="basic-icon-default-fullname2" class="input-group-text">
+                                                        <i class="bx bx-plus-circle"></i>
+                                                    </span>
+                                                    <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        id="kategoriBaruProduk"
+                                                        name="kategoriBaruProduk"
+                                                        placeholder="Input New Category"
+                                                        aria-describedby="basic-icon-default-fullname2" />
+                                                </div>
+                                            </div>
+                                        </div>
 
                                         <div class="row mb-3">
                                             <label class="col-sm-2 col-form-label" for="hargaProduk">Product Price</label>
@@ -174,21 +193,6 @@ $kategori = array(
                 </div>
                 <!-- / Content -->
 
-                <!-- Footer -->
-                <footer class="content-footer footer bg-footer-theme">
-                    <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
-                        <div class="mb-2 mb-md-0">
-                            ©
-                            <script>
-                                document.write(new Date().getFullYear());
-                            </script>
-                            , made by MediCart
-                            <!-- <a href="https://www.instagram.com/syafiqghiffari__/" target="_blank" class="footer-link fw-bolder">Syafiq Al-Ghiffari</a> -->
-                        </div>
-                    </div>
-                </footer>
-                <!-- / Footer -->
-
                 <div class="content-backdrop fade"></div>
             </div>
             <!-- Content wrapper -->
@@ -206,3 +210,32 @@ $kategori = array(
         margin-top: 60px;
     }
 </style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Mendapatkan elemen select kategori dan row kategori baru
+        const kategoriSelect = document.getElementById('kategoriProduk');
+        const newCategoryRow = document.getElementById('newCategoryRow');
+        const kategoriBaruInput = document.getElementById('kategoriBaruProduk');
+        
+        // Menambahkan event listener untuk perubahan pada select kategori
+        kategoriSelect.addEventListener('change', function() {
+            // Jika user memilih "lain-lain", tampilkan text box kategori baru
+            if (this.value === 'lain-lain') {
+                newCategoryRow.style.display = 'flex';
+                kategoriBaruInput.setAttribute('required', 'required');
+            } else {
+                newCategoryRow.style.display = 'none';
+                kategoriBaruInput.removeAttribute('required');
+            }
+        });
+        
+        // Menangani form submission
+        document.querySelector('form').addEventListener('submit', function(e) {
+            if (kategoriSelect.value === 'lain-lain' && kategoriBaruInput.value.trim() === '') {
+                e.preventDefault();
+                alert('Silakan masukkan kategori baru!');
+            }
+        });
+    });
+</script>

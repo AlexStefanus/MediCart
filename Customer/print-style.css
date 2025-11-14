@@ -1,0 +1,289 @@
+/* Print Styles for MediCart Transaction Reports */
+@media print {
+    /* 1. Hide navbar completely */
+    .navbar, 
+    nav,
+    header,
+    .fixed-top,
+    .main-header {
+        display: none !important;
+    }
+    
+    /* 2. Hide URL at bottom left */
+    @page { margin-bottom: 0 !important; }
+    body::after { content: none !important; }
+    html::after { content: none !important; }
+    
+    /* Prevent browsers from adding URLs */
+    a[href]:after { content: none !important; }
+    
+    /* 3. Hide feedback section at bottom left */
+    .mt-4, 
+    form,
+    .d-print-none,
+    .feedback-section {
+        display: none !important;
+    }
+    
+    /* 4. Hide page numbers at bottom right */
+    @page { 
+        size: auto; 
+        margin: 0mm !important; 
+    }
+    
+    /* 5. Hide date and time at top left */
+    @page :first {
+        margin-top: 0mm !important;
+    }
+    
+    /* 6. Hide "Transaksi Belanja" text at top center */
+    .pagetitle,
+    h1.text-danger,
+    #title-text {
+        display: none !important;
+    }
+    
+    /* Hide all buttons and navigation elements */
+    .btn, 
+    button,
+    .text-center,
+    nav,
+    .nav,
+    .navbar-nav,
+    .navbar-brand,
+    .navbar-toggler {
+        display: none !important;
+    }
+    
+    /* Ensure clean print without browser additions */
+    body {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        margin: 15mm auto !important; /* Center horizontally with auto margins */
+        padding: 0 !important;
+        width: 80% !important; /* Reduced width to ensure content fits within page */
+        height: auto !important;
+        background-color: white !important; /* Force white background */
+        max-width: 800px !important; /* Limit maximum width */
+    }
+    
+    /* Additional fixes for browser-specific headers/footers */
+    html {
+        height: auto !important;
+        background-color: white !important;
+    }
+    
+    /* Force white background on all elements */
+    * {
+        background-color: white !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+    
+    /* Hide any footer elements */
+    footer,
+    .footer {
+        display: none !important;
+    }
+    
+    /* Hide form elements */
+    input, 
+    textarea,
+    select,
+    button,
+    .form-control {
+        display: none !important;
+    }
+    
+    /* Hide specific elements by ID that might be added by the browser */
+    #header,
+    #footer,
+    #browser-info,
+    #url-info {
+        display: none !important;
+    }
+    
+    /* Make sure the main content is visible and centered */
+    .main-content,
+    .container,
+    .container-fluid,
+    .section,
+    main {
+        display: block !important;
+        width: 100% !important;
+        margin: 0 auto !important;
+        padding: 0 !important;
+        background-color: white !important; /* Force white background */
+    }
+    
+    /* Center the print content */
+    .print-only {
+        margin: 0 auto !important;
+        text-align: center !important;
+        width: 100% !important;
+    }
+    
+    /* Adjust row and column layout for better print margins */
+    .row {
+        display: block !important;
+        margin: 0 !important;
+        width: 100% !important;
+        page-break-inside: avoid !important;
+    }
+    
+    .col, .col-md-6 {
+        display: block !important;
+        width: 100% !important;
+        padding: 0 !important;
+        margin-bottom: 15px !important;
+    }
+    
+    /* Fix for the table container */
+    .card.col {
+        border: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 100% !important;
+        display: block !important;
+        page-break-inside: avoid !important;
+    }
+    
+    /* Make sure tables are visible */
+    table, .table {
+        display: table !important;
+        width: 100% !important;
+        margin: 0 !important;
+        border-collapse: collapse !important;
+        font-size: 10px !important; /* Smaller font size for table content */
+        page-break-inside: avoid !important;
+    }
+    
+    thead {
+        display: table-header-group !important;
+    }
+    
+    tbody {
+        display: table-row-group !important;
+    }
+    
+    tr {
+        display: table-row !important;
+        page-break-inside: avoid !important;
+    }
+    
+    /* Make table columns fit properly */
+    th, td {
+        display: table-cell !important;
+        padding: 3px !important;
+        border: 1px solid #ddd !important;
+        text-align: left !important;
+    }
+    
+    /* Adjust column widths for better fit */
+    th:nth-child(1), td:nth-child(1) { width: 5% !important; } /* No. */
+    th:nth-child(2), td:nth-child(2) { width: 20% !important; } /* ID Produk */
+    th:nth-child(3), td:nth-child(3) { width: 40% !important; } /* Nama Produk */
+    th:nth-child(4), td:nth-child(4) { width: 10% !important; } /* Jumlah */
+    th:nth-child(5), td:nth-child(5) { width: 25% !important; } /* Harga */
+    
+    /* Show print-only content */
+    .print-only {
+        display: block !important;
+        margin: 0 auto !important;
+        text-align: center !important;
+        padding-bottom: 20px !important;
+    }
+    
+    /* Styles for print sections */
+    .print-section {
+        margin-bottom: 20px !important;
+        page-break-inside: avoid !important;
+        display: block !important;
+        visibility: visible !important;
+        width: 100% !important;
+        clear: both !important;
+    }
+    
+    /* Customer info section */
+    .customer-info {
+        margin: 0 auto 20px auto !important;
+        width: 80% !important;
+        max-width: 600px !important;
+        display: block !important;
+        visibility: visible !important;
+        float: none !important;
+        clear: both !important;
+        page-break-inside: avoid !important;
+    }
+    
+    /* Make sure list group is visible */
+    .list-group {
+        display: block !important;
+        visibility: visible !important;
+        margin-bottom: 20px !important;
+        border: none !important;
+        padding: 0 !important;
+        list-style-type: none !important;
+        page-break-inside: avoid !important;
+    }
+    
+    /* Center the list items */
+    .list-group-item {
+        text-align: center !important;
+        background-color: white !important;
+        border: 1px solid #ddd !important;
+        margin-bottom: 4px !important;
+        display: block !important;
+        visibility: visible !important;
+        padding: 8px !important;
+        page-break-inside: avoid !important;
+        font-size: 12px !important;
+    }
+    
+    /* Product table section */
+    .product-table-section {
+        margin: 20px auto 0 auto !important;
+        page-break-before: avoid !important;
+        width: 90% !important;
+        max-width: 700px !important;
+    }
+    
+    /* Table responsive container */
+    .table-responsive {
+        display: block !important;
+        width: 100% !important;
+        overflow-x: visible !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+    
+    /* Total price styling */
+    .total-price {
+        margin-top: 10px !important;
+        margin-bottom: 10px !important;
+        text-align: right !important;
+        padding-right: 10px !important;
+        font-weight: bold !important;
+    }
+    
+    /* Adjust Tanda Tangan toko position */
+    .text-end, .print-tanda-tangan {
+        text-align: right !important;
+        padding-right: 20px !important;
+        margin-top: 20px !important;
+        margin-bottom: 20px !important;
+    }
+    
+    /* Ensure Tanda Tangan image doesn't get cut off */
+    .text-end img, .print-tanda-tangan img {
+        max-width: 120px !important;
+        height: auto !important;
+        margin-right: 20px !important;
+    }
+    
+    /* Specific styles for Tanda Tangan section */
+    .print-tanda-tangan {
+        position: relative !important;
+        right: 20px !important;
+        padding-bottom: 20px !important;
+    }
+}

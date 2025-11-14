@@ -1,9 +1,20 @@
 <?php
 session_start();
+
+// Jika menggunakan Composer
+// require '../vendor/autoload.php';
+
+// Import PHPMailer classes
+require '../PHPMailer/src/Exception.php';
+require '../PHPMailer/src/PHPMailer.php';
+require '../PHPMailer/src/SMTP.php';
+
+// Import Dompdf
 require '../vendor/autoload.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\SMTP;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 
@@ -79,6 +90,8 @@ function generateTransactionPDF($detailTransaksi, $keranjangUser)
     file_put_contents($pdfPath, $dompdf->output());
     return $pdfPath;
 }
+
+// PHPMailer classes sudah diimpor di atas
 
 // Send email with PDF
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

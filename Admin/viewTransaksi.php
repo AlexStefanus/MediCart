@@ -33,7 +33,7 @@ $allTransaksi = query("SELECT * FROM transaksi ORDER BY idTransaksi DESC");
             <div class="content-wrapper">
                 <!-- Content -->
                 <div class="container-xxl flex-grow-1 container-p-y">
-                    <h4 class="fw-bold py-3 custom-margin">Shopping Transaction</h4>
+                    <h4 class="fw-bold py-3 custom-margin">Manage Transaction</h4>
                     <!-- Basic Table -->
                     <div class="card">
                         <h5 class="card-header" style="margin-bottom: -20px;">Transaction Data</h5>
@@ -84,17 +84,25 @@ $allTransaksi = query("SELECT * FROM transaksi ORDER BY idTransaksi DESC");
                                             <td>Rp<?= number_format($transaksi["totalHarga"], 0, ',', '.'); ?>/-</td>
                                             <td>
                                                 <?php if ($transaksi["statusTransaksi"] == 'Accepted' || $transaksi["statusTransaksi"] == 'Rejected' || $transaksi["statusTransaksi"] == 'Cancelled') : ?>
-                                                    Disabled!
+                                                    <div class="text-center">
+                                                        <?php if ($transaksi["statusTransaksi"] == 'Accepted') : ?>
+                                                            <span class="badge bg-success">Accepted ✓</span>
+                                                        <?php elseif ($transaksi["statusTransaksi"] == 'Rejected') : ?>
+                                                            <span class="badge bg-danger">Rejected ✗</span>
+                                                        <?php elseif ($transaksi["statusTransaksi"] == 'Cancelled') : ?>
+                                                            <span class="badge bg-warning">Cancelled</span>
+                                                        <?php endif; ?>
+                                                    </div>
                                                 <?php else : ?>
                                                     <div style="display: flex; flex-direction: column; gap: 8px;">
                                                         <a href="acceptTransaksi.php?idTransaksi=<?= $transaksi["idTransaksi"]; ?>"
-                                                            class="btn btn-secondary accept-btn"
+                                                            class="btn btn-primary accept-btn"
                                                             data-id-transaksi="<?= $transaksi["idTransaksi"]; ?>"
                                                             style="display: flex; align-items: center; justify-content: center; gap: 8px;">
                                                             <i class="fas fa-check"></i><span>Accept</span>
                                                         </a>
                                                         <a href="rejectTransaksi.php?idTransaksi=<?= $transaksi["idTransaksi"]; ?>"
-                                                            class="btn btn-secondary reject-btn"
+                                                            class="btn btn-danger reject-btn"
                                                             data-id-transaksi="<?= $transaksi["idTransaksi"]; ?>"
                                                             style="display: flex; align-items: center; justify-content: center; gap: 8px;">
                                                             <i class="fas fa-times"></i><span>Reject</span>
@@ -115,21 +123,6 @@ $allTransaksi = query("SELECT * FROM transaksi ORDER BY idTransaksi DESC");
                     <!--/ Basic Bootstrap Table -->
                 </div>
                 <!-- / Content -->
-
-                <!-- Footer -->
-                <footer class="content-footer footer bg-footer-theme">
-                    <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
-                        <div class="mb-2 mb-md-0">
-                            ©
-                            <script>
-                                document.write(new Date().getFullYear());
-                            </script>
-                            , made by MediCart
-                            <!-- <a href="https://www.instagram.com/syafiqghiffari__/" target="_blank" class="footer-link fw-bolder">Syafiq Al-Ghiffari</a> -->
-                        </div>
-                    </div>
-                </footer>
-                <!-- / Footer -->
 
                 <div class="content-backdrop fade"></div>
             </div>
