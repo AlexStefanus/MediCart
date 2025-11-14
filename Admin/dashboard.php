@@ -91,7 +91,7 @@ $totalKeuangan = query("SELECT SUM(totalHarga) FROM transaksi WHERE statusPengir
                                                     class="rounded" />
                                             </div>
                                         </div>
-                                        <span class="fw-semibold d-block mb-1">Pending Order</span>
+                                        <span class="fw-semibold d-block mb-1">Pesanan Tertunda</span>
                                         <h3 class="card-title mb-2"><?= $totalTransaksiBelumSelesai; ?></h3>
                                         <small class="fw-semibold" style="color: #696bff;">Total Transaksi Belum Selesai</small>
                                     </div>
@@ -104,12 +104,12 @@ $totalKeuangan = query("SELECT SUM(totalHarga) FROM transaksi WHERE statusPengir
                                         <div class="card-title d-flex align-items-center justify-content-center mb-3">
                                             <div class="avatar flex-shrink-0">
                                                 <img
-                                                    src="../img/complete_order.png"
+                                                    src="../img/complate_order.png"
                                                     alt="Credit Card"
                                                     class="rounded" />
                                             </div>
                                         </div>
-                                        <span class="fw-semibold d-block mb-1">Complete Order</span>
+                                        <span class="fw-semibold d-block mb-1">Pesanan Selesai</span>
                                         <h3 class="card-title text-nowrap mb-1"><?= $totalTransaksiSelesai; ?></h3>
                                         <small class="fw-semibold" style="color: #696bff;">Total Transaksi Selesai</small>
                                     </div>
@@ -124,7 +124,7 @@ $totalKeuangan = query("SELECT SUM(totalHarga) FROM transaksi WHERE statusPengir
                                                 <img src="../img/order_reject.png" alt="Credit Card" class="rounded" />
                                             </div>
                                         </div>
-                                        <span class="fw-semibold d-block mb-1">Order Rejected</span>
+                                        <span class="fw-semibold d-block mb-1">Pesanan Ditolak</span>
                                         <h3 class="card-title text-nowrap mb-1"><?= $totalTransaksiReject; ?></h3>
                                         <small class="fw-semibold" style="color: #696bff;">Total Transaksi Ditolak</small>
                                     </div>
@@ -139,7 +139,7 @@ $totalKeuangan = query("SELECT SUM(totalHarga) FROM transaksi WHERE statusPengir
                                                 <img src="../img/order_canceled.png" alt="Credit Card" class="rounded" />
                                             </div>
                                         </div>
-                                        <span class="fw-semibold d-block mb-1">Order Canceled</span>
+                                        <span class="fw-semibold d-block mb-1">Pesanan Dibatalkan</span>
                                         <h3 class="card-title mb-2"><?= $totalCancelTransaksi; ?></h3>
                                         <small class="fw-semibold" style="color: #696bff;">Total Transaksi Dibatalkan</small>
                                     </div>
@@ -154,7 +154,7 @@ $totalKeuangan = query("SELECT SUM(totalHarga) FROM transaksi WHERE statusPengir
                                                 <img src="../img/product_added.png" alt="Credit Card" class="rounded" />
                                             </div>
                                         </div>
-                                        <span class="fw-semibold d-block mb-1">Product Added</span>
+                                        <span class="fw-semibold d-block mb-1">Produk Ditambah</span>
                                         <h3 class="card-title mb-2"><?= $totalProduk; ?></h3>
                                         <small class="fw-semibold" style="color: #696bff;">Total Produk</small>
                                     </div>
@@ -173,7 +173,7 @@ $totalKeuangan = query("SELECT SUM(totalHarga) FROM transaksi WHERE statusPengir
                                                     class="rounded" />
                                             </div>
                                         </div>
-                                        <span class="fw-semibold d-block mb-1">Users</span>
+                                        <span class="fw-semibold d-block mb-1">Pelanggan</span>
                                         <h3 class="card-title mb-2"><?= $totalCustomer; ?></h3>
                                         <small class="fw-semibold" style="color: #696bff;">Total Customer</small>
                                     </div>
@@ -188,7 +188,7 @@ $totalKeuangan = query("SELECT SUM(totalHarga) FROM transaksi WHERE statusPengir
                                                 <img src="../img/income_money.png" alt="Credit Card" class="rounded" />
                                             </div>
                                         </div>
-                                        <span class="fw-semibold d-block mb-1">Income Money</span>
+                                        <span class="fw-semibold d-block mb-1">Pendapatan</span>
                                         <h3 class="card-title mb-2">Rp<?= number_format($totalKeuangan, 0, ',', '.'); ?>/-</h3>
                                         <small class="fw-semibold" style="color: #696bff;">Total Pemasukan</small>
                                     </div>
